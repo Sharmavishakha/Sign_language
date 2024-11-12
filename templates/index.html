@@ -1,0 +1,101 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language to Text</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin: 20px;
+            color: #333;
+        }
+
+        img {
+            border: 2px solid #333;
+            border-radius: 10px;
+            max-width: 90%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign Language to Text Conversion</h1>
+    <img id="video-feed" src="/video_feed" alt="Video Feed">
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language to Text Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            text-align: center;
+        }
+        video {
+            width: 80%;
+            border: 2px solid #333;
+            margin: 20px auto;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sign Language to Text Converter</h1>
+    <img src="/video_feed" width="80%">
+    <div>
+        <p><strong>Word:</strong> <span id="current_word"></span></p>
+        <p><strong>Sentence:</strong> <span id="sentence"></span></p>
+    </div>
+    <button onclick="addWord()">Add Word</button>
+    <button onclick="clearSentence()">Clear Sentence</button>
+
+    <script>
+        const currentWordElement = document.getElementById('current_word');
+        const sentenceElement = document.getElementById('sentence');
+
+        function addWord() {
+            fetch('/add_word', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    sentenceElement.innerText = data.sentence;
+                });
+        }
+
+        function clearSentence() {
+            fetch('/clear_sentence', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    sentenceElement.innerText = data.sentence;
+                    currentWordElement.innerText = "";
+                });
+        }
+    </script>
+</body>
+</html>
